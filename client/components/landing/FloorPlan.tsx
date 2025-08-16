@@ -1,9 +1,45 @@
-import {ArrowRight as ArrowForward} from "lucide-react" 
+import { useState, useCallback, useEffect } from "react";
+import { ArrowRight as ArrowForward } from "lucide-react";
+import { FloorPlanModal } from "../FloorPlanModal";
+
+/** Tipagem do plano selecionado (compatível com o FloorPlanModal) */
+type SelectedPlan = {
+  title: string;
+  description: string;
+  imageSrc: string;
+};
+
+/** Hook do modal (reutilizável) */
+function useFloorPlanModal() {
+  const [isOpen, setIsOpen] = useState(false);
+  const openModal = useCallback(() => setIsOpen(true), []);
+  const closeModal = useCallback(() => setIsOpen(false), []);
+  return { isOpen, openModal, closeModal };
+}
 
 const FloorPlan = () => {
+  const modal = useFloorPlanModal();
+  const [selectedPlan, setSelectedPlan] = useState<SelectedPlan | null>(null);
 
-    return(
-        <section
+  // bloqueia o scroll da página quando o modal estiver aberto
+  useEffect(() => {
+    if (!modal.isOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [modal.isOpen]);
+
+  // helpers para abrir modal já com os dados da planta
+  const openPlan = (plan: SelectedPlan) => {
+    setSelectedPlan(plan);
+    modal.openModal();
+  };
+
+  return (
+    <>
+      <section
         id="planta"
         className="max-w-[1440px] mx-auto px-20 py-24 bg-white"
       >
@@ -34,7 +70,18 @@ const FloorPlan = () => {
                 <p className="text-soul-blue text-base mb-6 max-w-[386px] leading-tight">
                   Ambientes integrados e varanda social com vista para o jardim.
                 </p>
-                <button className="flex items-center gap-1 text-gray-700 text-sm hover:text-soul-dark transition-colors">
+                <button
+                  onClick={() =>
+                    openPlan({
+                      title: "Planta Tipo 1",
+                      description:
+                        "Ambientes integrados e varanda social com vista para o jardim.",
+                      imageSrc:
+                        "https://api.builder.io/api/v1/image/assets/TEMP/b1d18f08b59fa74d6432571cd19450ba246ad248?width=1280",
+                    })
+                  }
+                  className="flex items-center gap-1 text-gray-700 text-sm hover:text-soul-dark transition-colors"
+                >
                   <span>Ver detalhes</span>
                   <ArrowForward className="w-5 h-5" />
                 </button>
@@ -55,7 +102,18 @@ const FloorPlan = () => {
                 <p className="text-soul-blue text-base mb-6 max-w-[386px] leading-tight">
                   Ambientes integrados e varanda social com vista para o jardim.
                 </p>
-                <button className="flex items-center gap-1 text-gray-700 text-sm hover:text-soul-dark transition-colors">
+                <button
+                  onClick={() =>
+                    openPlan({
+                      title: "Planta Tipo 2",
+                      description:
+                        "Ambientes integrados e varanda social com vista para o jardim.",
+                      imageSrc:
+                        "https://api.builder.io/api/v1/image/assets/TEMP/6491b0a698b6f2f4172083eb76d4fbb65786b008?width=1280",
+                    })
+                  }
+                  className="flex items-center gap-1 text-gray-700 text-sm hover:text-soul-dark transition-colors"
+                >
                   <span>Ver detalhes</span>
                   <ArrowForward className="w-5 h-5" />
                 </button>
@@ -64,7 +122,15 @@ const FloorPlan = () => {
           </div>
         </div>
       </section>
-    )
-}
+
+      {/* Modal com plano selecionado */}
+      <FloorPlanModal
+        isOpen={modal.isOpen}
+        onClose={modal.closeModal}
+        plan={selectedPlan}
+      />
+    </>
+  );
+};
 
 export default FloorPlan;

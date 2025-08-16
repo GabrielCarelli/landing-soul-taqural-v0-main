@@ -4,14 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom font face for Fagun - fallback to system fonts */
-@font-face {
-  font-family: "Fagun";
-  src:
-    local("Inter"), local("system-ui"), local("-apple-system"), local("Roboto");
-  font-weight: 300 900;
-  font-display: swap;
-}
 
 @layer base {
   /**
@@ -113,5 +105,12 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+@media (min-width: 1921px) {
+  .max-content-wrapper {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
