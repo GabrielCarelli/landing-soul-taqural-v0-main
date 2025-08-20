@@ -36,7 +36,7 @@ export function FloorPlanModal({ isOpen, onClose, plan }: FloorPlanModalProps) {
     >
       {/* Modal Content */}
       <div
-        className="w-full max-w-[1120px] bg-white rounded-lg shadow-2xl max-h-[90vh] overflow-y-auto"
+        className="w-full max-w-[1120px] bg-white rounded-lg shadow-2xl max-h-[85vh] overflow-hidden"
         onClick={(e) => e.stopPropagation()} // impede fechar ao clicar dentro
       >
         <div className="p-6 sm:p-8 md:p-10">
@@ -77,12 +77,12 @@ export function FloorPlanModal({ isOpen, onClose, plan }: FloorPlanModalProps) {
             </button>
           </div>
 
-          {/* Floor Plan Image (dinâmica conforme o tipo) */}
+          {/* Floor Plan Image (diminuída e sem scroll) */}
           <div className="flex justify-center">
             <img
               src={plan.imageSrc}
               alt={`Planta selecionada: ${plan.title}`}
-              className="w-full max-w-[670px] h-auto rounded-lg"
+              className="w-full max-w-[560px] md:max-w-[620px] lg:max-w-[670px] max-h-[60vh] object-contain rounded-lg"
               loading="lazy"
               decoding="async"
             />

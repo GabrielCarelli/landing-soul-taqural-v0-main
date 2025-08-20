@@ -2,6 +2,22 @@ const Footer = () => {
   return (
     <footer className="flex px-6 sm:px-6 md:px-10 lg:px-20 py-10 flex-col justify-center items-start gap-6 bg-soul-bg-gray">
       <div className="flex flex-col items-center gap-8 w-full">
+
+        {/* Empreendimento realizado por */}
+        <div className="flex items-start w-full gap-2">
+          <span className="text-studio-dark font-fagun text-base font-normal">
+            Empreendimento realizado por:
+          </span>
+          <img
+            src="https://github.com/GabrielCarelli/images-studio/blob/main/Imagem%20do%20WhatsApp%20de%202025-08-19%20%C3%A0(s)%2015.04.01_b71f2a96.jpg?raw=true"
+            alt="Logo da Construtora"
+            className="h-10 object-contain ml-5"
+          />
+        </div>
+
+        {/* Linha divisória */}
+        <div className="w-full border-t border-black"></div>
+
         {/* Powered by + logo */}
         <div className="flex flex-col items-center gap-4">
           <span className="text-studio-dark font-fagun text-xl font-normal">
@@ -15,7 +31,7 @@ const Footer = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clipPath="url(#clip0_1_415)">
+             <g clipPath="url(#clip0_1_415)">
               <path
                 d="M30.5442 12.4175V0L27.9833 2.51397L25.4224 5.02793L22.8616 7.5419L17.7554 12.5546V12.4327H12.6491V17.4454H12.7733L12.6491 17.5673L10.228 19.9594L7.66709 22.4733L5.10622 24.9873L2.54535 27.5013L0 29.9848H15.1945L15.21 29.2534V22.4581V22.1534V14.9314H22.5667H22.8771H37.0317L22.8771 28.8268L21.682 30H25.2983L25.4224 29.8781L27.8436 27.5013L27.9678 27.3794L30.389 25.0025L30.5131 24.8807L32.9343 22.5038L35.5418 19.9594L38.1026 17.4454L40.648 14.9314L43.2088 12.4175H30.5442ZM12.6491 27.486H6.17713L8.738 24.9721L11.2989 22.4581L12.6647 21.1173V27.486H12.6491ZM27.9988 12.4175H21.5113L27.9988 6.04876V12.4175Z"
                 fill="#FED000"
@@ -59,6 +75,8 @@ const Footer = () => {
                 <rect width="160" height="30" fill="white" />
               </clipPath>
             </defs>
+
+
           </svg>
         </div>
 
@@ -74,11 +92,9 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="flex h-10 px-4 py-2 flex-col justify-center items-center gap-2.5 rounded-full border border-studio-blue hover:bg-soul-secondary hover:text-white transition-colors duration-300"
           >
-            <div className="flex items-center gap-2">
-              <span className="font-fagun text-base font-normal">
-                Fale conosco
-              </span>
-            </div>
+            <span className="font-fagun text-base font-normal">
+              Fale conosco
+            </span>
           </a>
         </div>
       </div>

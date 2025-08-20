@@ -99,11 +99,7 @@ export function GalleryModal({
             Veja cada detalhe do seu futuro lar
           </h2>
           <p className="text-studio-gray font-fagun text-xs sm:text-sm leading-relaxed max-w-3xl mx-auto mt-3">
-            Conheça os detalhes do empreendimento em imagens que destacam o
-            conforto, a praticidade e o estilo de vida que o Studio
-            Universidade oferece. Cada ambiente foi pensado para atender às
-            necessidades de estudantes e jovens profissionais, com plantas
-            inteligentes, acabamentos modernos e espaços otimizados para o dia a dia.
+            Conheça os detalhes do empreendimento em imagens que destacam o conforto, a praticidade e o estilo de vida que o Soul Taquaral oferece. Cada ambiente foi pensado para atender às necessidades da sua família, com plantas inteligentes, acabamentos modernos e espaços otimizados para o dia a dia
           </p>
         </div>
 

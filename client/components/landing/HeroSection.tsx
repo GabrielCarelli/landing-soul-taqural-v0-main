@@ -43,7 +43,7 @@ function toHubspotVisitFields(phone: string) {
   return [
     { name: "firstname", value: fixedName },
     { name: "email", value: fixedEmail },
-    { name: "phone", value: phone },
+    { name: "mobilephone", value: phone },
     { name: "city", value: FIXED_CITY },
     { name: "origem_form", value: "Agendar Visita - Soul Taquaral" },
   ];
@@ -99,7 +99,7 @@ const HeroSection = () => {
         <div className="absolute top-4 -right-0 bg-soul-yellow px-4 py-2 shadow-md">
           <p className="text-soul-secondary md:text-lg text-base font-normal whitespace-nowrap">
             Previsão de entrega em:{" "}
-            <span className="font-black">00/00/0000</span>
+            <span className="font-black">2026</span>
           </p>
         </div>
       </div>

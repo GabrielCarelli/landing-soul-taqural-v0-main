@@ -60,7 +60,7 @@ const Amenities = () => {
         "https://api.builder.io/api/v1/image/assets/TEMP/5b85c265a9eb3ee238a494b4c5573d8a4d17a976?width=700",
       title: "Guarita e segurança",
       description:
-        "Portaria com acesso controlado e sistema de segurança para sua tranquilidade.",
+        "Portaria com acesso controlado e sistema de segurança",
     },
   ];
 
@@ -75,7 +75,7 @@ const Amenities = () => {
           <h2 className="text-soul-dark text-[32px] font-black">
             Mais do que uma casa — um jeito de viver
           </h2>
-          <p className="text-soul-dark text-xl mt-2">
+          <p className="text-soul-dark text-lg mt-2">
             Do lazer ao conforto e tranquilidade, o Soul Taquaral reúne
             diferenciais que fazem a diferença no dia a dia.
           </p>
@@ -110,19 +110,19 @@ const Amenities = () => {
           {items.map((amenity, index) => (
             <div
               key={index}
-              className="relative snap-start w-[350px] flex-shrink-0 flex flex-col items-center"
+              className="relative snap-start w-[350px] flex-shrink-0 flex flex-col items-center pb-12"
             >
               <img
                 src={amenity.image}
                 alt={amenity.title}
                 className="w-full h-[450px] rounded-lg object-cover z-0"
               />
-              {/* Card flutuante padronizado */}
-              <div className="absolute left-1/2 -translate-x-1/2 -bottom-4 w-[300px] h-[110px] rounded-lg bg-white shadow p-4 z-20 flex flex-col justify-between">
-                <h3 className="text-soul-dark text-base font-bold leading-snug line-clamp-2 mb-[-3px]">
+              {/* Card flutuante padronizado (sem overflow) */}
+              <div className="absolute left-1/2 -translate-x-1/2 -bottom-4 w-[300px] min-h-[110px] rounded-lg bg-white shadow p-4 z-20 flex flex-col gap-1 overflow-hidden">
+                <h3 className="text-soul-dark text-base font-bold leading-snug line-clamp-2">
                   {amenity.title}
                 </h3>
-                <p className="text-soul-dark text-sm leading-snug line-clamp-2 mt-[-3px] ">
+                <p className="text-soul-dark text-sm leading-snug line-clamp-2">
                   {amenity.description}
                 </p>
               </div>

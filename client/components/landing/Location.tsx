@@ -9,10 +9,9 @@ const Location = () => {
   const zoom = 15;
 
   const points = [
-    { title: "PUC", desc: "A apenas 2 min do campus principal da PUC-Campinas." },
-    { title: "Hospital Madre Theodora", desc: "Atendimento médico a 4 min de distância." },
-    { title: "Oxxo Puccamp", desc: "Conveniência 24h logo ali na esquina." },
-    { title: "Ronaldo Academy", desc: "Escola de futebol para crianças, bem pertinho do prédio." },
+    { title: "Parque Taquaral", desc: "A menos de 1 km do portão 1 do Parque." },
+    { title: "Restaurantes", desc: "Muitas opções como Pizzarias, Bares, Comida Japonesa e entre outros" },
+    { title: "Comércios", desc: "Diversas opções de comércio e supermercados" },
   ];
 
   const MapPinIcon = () => (
@@ -56,7 +55,7 @@ const Location = () => {
           A vida que você quer no bairro que você ama
         </h2>
         <p className="text-soul-dark text-center text-lg sm:text-xl md:text-xl lg:text-xl font-normal max-w-[1174px]">
-          Localizado na charmosa Rua Fernão Lopes, o Soul Taquaral coloca você
+          Localizado na charmosa Rua Embiruçu, o Soul Taquaral coloca você
           próximo à Lagoa, escolas, padarias, supermercados e tudo o que
           importa.
         </p>
@@ -114,7 +113,7 @@ const Location = () => {
           >
             <MapPinIcon />
             <span className="text-soul-dark text-center text-xs md:text-base leading-[120%] truncate">
-              Rua Fernão Lopes, 91 — Taquaral — Campinas/SP
+              Rua Embiruçu, 82 – Taquaral – Campinas/SP
             </span>
           </div>
 

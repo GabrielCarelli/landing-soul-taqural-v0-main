@@ -3,14 +3,14 @@ import { GalleryModal } from "../GalleryModal";
 
 /** Imagens originais da sua gallery */
 const GALLERY_IMAGES: string[] = [
-  "https://api.builder.io/api/v1/image/assets/TEMP/e6bbc647fdd164eb4cbb35b2bbc3023eb6b27c6c?width=580",
-  "https://api.builder.io/api/v1/image/assets/TEMP/76288cb184c6e8fe93e3e1ef494fb327eb231c43?width=580",
-  "https://api.builder.io/api/v1/image/assets/TEMP/0951d0e0522945a86bddaeedd0f48a724103a727?width=580",
-  "https://api.builder.io/api/v1/image/assets/TEMP/25174d14f09e04a51e61eb8d77f52b06142dcb13?width=580",
-  "https://api.builder.io/api/v1/image/assets/TEMP/c5bf8de6e275a530c8ac58f7c7b984006903a891?width=580",
-  "https://api.builder.io/api/v1/image/assets/TEMP/96223770387889d1e77352744ab0955f14ae3ecc?width=580",
-  "https://api.builder.io/api/v1/image/assets/TEMP/4cf70a1030e46141c5fec9261f0bd57d49ec18a2?width=580",
-  "https://api.builder.io/api/v1/image/assets/TEMP/d9d4689397a4d085fdf3313b63f9c5b58153c7e0?width=580",
+  "https://github.com/GabrielCarelli/images-studio/blob/main/SUITE_12%20-%20Foto.jpg?raw=true",
+  "https://github.com/GabrielCarelli/images-studio/blob/main/T%C3%A9rreo_4%20-%20Foto.jpg?raw=true",
+  "https://github.com/GabrielCarelli/images-studio/blob/main/T%C3%A9rreo_3%20-%20Foto.jpg?raw=true",
+  "https://github.com/GabrielCarelli/images-studio/blob/main/Rooftop_22%20-%20Foto.jpg?raw=true",
+  "https://github.com/GabrielCarelli/images-studio/blob/main/T%C3%A9rreo_6%20-%20Foto.jpg?raw=true",
+  "https://github.com/GabrielCarelli/images-studio/blob/main/cozinha%20sala.png?raw=true",
+  "https://github.com/GabrielCarelli/images-studio/blob/main/sala%20TV.png?raw=true",
+  "https://github.com/GabrielCarelli/images-studio/blob/main/SUITE_13%20-%20Foto.jpg?raw=true",
 ];
 
 const CARD_CLASSES =

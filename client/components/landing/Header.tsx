@@ -5,7 +5,6 @@ const NAV_ITEMS = [
   { id: "galeria", label: "Galeria" },
   { id: "diferenciais", label: "Diferenciais" },
   { id: "planta", label: "Planta" },
-  { id: "video", label: "Vídeo" },
   { id: "comodidades", label: "Comodidades" },
   { id: "localizacao", label: "Localização" },
   { id: "financiamento", label: "Financiamento" },
@@ -13,7 +12,7 @@ const NAV_ITEMS = [
 
 function Logo() {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 shrink-0">
       <svg
         width="87"
         height="24"
@@ -49,14 +48,11 @@ function ContactButton({
   className?: string;
 }) {
   const base =
-    "inline-flex shrink-0 items-center justify-center rounded-full bg-soul-dark text-white font-medium leading-tight whitespace-nowrap select-none transition-colors hover:bg-soul-secondary";
+    "inline-flex shrink-0 items-center justify-center rounded-full bg-soul-dark text-white font-fagun font-normal leading-tight whitespace-nowrap select-none transition-colors hover:bg-soul-secondary";
   const sizes = [
-    // Mobile: maior e centralizado (similar ao segundo exemplo)
-    "h-11 px-6 text-base",
-    // Tablet
-    "md:h-10 md:px-6 md:text-[clamp(0.95rem,1.8vw,1.05rem)]",
-    // Desktop
-    "lg:h-10 lg:px-8 lg:text-[clamp(1.05rem,1.2vw,1.25rem)]",
+    "h-11 px-6 text-base", // Mobile
+    "md:h-10 md:px-6 md:text-[clamp(0.95rem,1.8vw,1.05rem)]", // Tablet
+    "lg:h-10 lg:px-8 lg:text-[clamp(1.05rem,1.2vw,1.25rem)]", // Desktop
   ].join(" ");
   return (
     <button onClick={onClick} className={`${base} ${sizes} ${className}`}>
@@ -74,27 +70,26 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
-const NavLinks = ({ className = "" }: { className?: string }) => (
-  <nav className={className}>
-    <ul className="flex items-center gap-5 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 flex-nowrap">
-      {NAV_ITEMS.map((item) => (
-        <li key={item.id}>
-          <button
-            onClick={() => scrollTo(`#${item.id}`)}
-            className="text-soul-dark text-base xl:text-lg 2xl:text-xl font-fagun font-bold leading-7 hover:text-soul-secondary transition-colors whitespace-nowrap"
-          >
-            {item.label}
-          </button>
-        </li> 
-      ))}
-    </ul>
-  </nav>
-);
-
+  const NavLinks = ({ className = "" }: { className?: string }) => (
+    <nav className={className}>
+      <ul className="flex items-center gap-8 xl:gap-12 2xl:gap-16 flex-nowrap">
+        {NAV_ITEMS.map((item) => (
+          <li key={item.id}>
+            <button
+              onClick={() => scrollTo(`#${item.id}`)}
+              className="text-soul-dark text-base xl:text-lg 2xl:text-xl font-fagun font-bold leading-7 hover:text-soul-secondary transition-colors whitespace-nowrap"
+            >
+              {item.label}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white max-content-wrapper">
-      {/* Desktop (lg+) */}
+      {/* Desktop (lg+) — h-20 e px-10 como o modelo */}
       <div className="hidden lg:flex h-20 px-10 items-center w-full max-content-wrapper">
         <Logo />
         <div className="flex flex-1 justify-center">
@@ -114,14 +109,14 @@ const NavLinks = ({ className = "" }: { className?: string }) => (
         </div>
       </div>
 
-      {/* Tablet (md) */}
+      {/* Tablet (md) — h-20 e px-6/md:px-10 + botão menu maior (w-10 h-10) */}
       <div className="hidden md:flex lg:hidden w-full h-20 px-6 md:px-10 justify-between items-center max-content-wrapper">
         <button
           onClick={() => setIsMenuOpen((v) => !v)}
           className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
           aria-label="Abrir menu"
         >
-          <Menu className="w-8 h-8 text-soul-dark" />
+          <Menu className="w-10 h-10 text-soul-dark" />
         </button>
         <Logo />
         <div className="flex items-center gap-4">
@@ -138,7 +133,7 @@ const NavLinks = ({ className = "" }: { className?: string }) => (
         </div>
       </div>
 
-      {/* Mobile (<md) */}
+      {/* Mobile (<md) — h-16 e botão centralizado largo como o modelo */}
       <div className="flex md:hidden flex-col w-full bg-white max-content-wrapper">
         <div className="flex w-full h-16 px-4 sm:px-6 justify-between items-center">
           <button
@@ -146,7 +141,7 @@ const NavLinks = ({ className = "" }: { className?: string }) => (
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             aria-label="Abrir menu"
           >
-            <Menu className="w-8 h-8 text-soul-dark" />
+            <Menu className="w-10 h-10 text-soul-dark" />
           </button>
           <Logo />
           <a
@@ -160,7 +155,6 @@ const NavLinks = ({ className = "" }: { className?: string }) => (
           </a>
         </div>
 
-        {/* Botão centralizado e largo no mobile (igual ao segundo) */}
         <div className="flex justify-center pb-2">
           <ContactButton
             onClick={() => scrollTo("#contato")}
@@ -169,7 +163,7 @@ const NavLinks = ({ className = "" }: { className?: string }) => (
         </div>
       </div>
 
-      {/* Slide Menu (mobile/tablet) */}
+      {/* Slide Menu (mobile/tablet) — mesma largura, bordas, overlay e posição */}
       {isMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
@@ -194,7 +188,7 @@ const NavLinks = ({ className = "" }: { className?: string }) => (
                   <button
                     key={item.id}
                     onClick={() => scrollTo(`#${item.id}`)}
-                    className="text-soul-dark text-lg md:text-xl font-fagun leading-7 text-left hover:text-soul-secondary transition-colors"
+                    className="text-soul-dark text-lg md:text-xl font-fagun font-normal leading-7 text-left hover:text-soul-secondary transition-colors"
                   >
                     {item.label}
                   </button>
