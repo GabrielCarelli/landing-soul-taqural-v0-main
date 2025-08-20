@@ -74,22 +74,23 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
-  const NavLinks = ({ className = "" }: { className?: string }) => (
-    <nav className={className}>
-      <ul className="flex items-center gap-8 xl:gap-12 2xl:gap-16 flex-nowrap">
-        {NAV_ITEMS.map((item) => (
-          <li key={item.id}>
-            <button
-              onClick={() => scrollTo(`#${item.id}`)}
-              className="text-soul-dark text-base xl:text-lg 2xl:text-xl font-fagun font-bold leading-7 hover:text-soul-secondary transition-colors whitespace-nowrap"
-            >
-              {item.label}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
+const NavLinks = ({ className = "" }: { className?: string }) => (
+  <nav className={className}>
+    <ul className="flex items-center gap-5 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 flex-nowrap">
+      {NAV_ITEMS.map((item) => (
+        <li key={item.id}>
+          <button
+            onClick={() => scrollTo(`#${item.id}`)}
+            className="text-soul-dark text-base xl:text-lg 2xl:text-xl font-fagun font-bold leading-7 hover:text-soul-secondary transition-colors whitespace-nowrap"
+          >
+            {item.label}
+          </button>
+        </li> 
+      ))}
+    </ul>
+  </nav>
+);
+
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white max-content-wrapper">

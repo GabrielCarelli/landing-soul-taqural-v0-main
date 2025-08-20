@@ -181,7 +181,7 @@ const Contact = () => {
         <img
           src="https://api.builder.io/api/v1/image/assets/TEMP/0484e0ab5bfcfe3a9893d70f576911772b44ee28?width=1240"
           alt="Imagem de contato"
-          className="w-full lg:flex-1 lg:h-[605px] object-cover rounded-lg"
+          className="w-full lg:flex-1 lg:h-[605px] object-cover rounded-lg mb-[-5rem] "
         />
       </div>
     </section>
