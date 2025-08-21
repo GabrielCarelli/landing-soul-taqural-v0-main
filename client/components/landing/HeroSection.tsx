@@ -1,8 +1,12 @@
+"use client";
+
 import { useState } from "react";
 import { MoveUpRight, Home, BedSingle } from "lucide-react";
 
-const HUBSPOT_PREFIX = "";
+const HUBSPOT_PREFIX = ""; // deixe "" para usar os nomes oficiais do HubSpot sem prefixo
 const FIXED_CITY = "Campinas";
+const VARIANT: "soul" | "studio" = "soul"; // <-- troque para "studio" na outra página
+
 const portalId = import.meta.env.VITE_PUBLIC_HUBSPOT_PORTAL_ID!;
 const formId = import.meta.env.VITE_PUBLIC_HUBSPOT_FORM_ID_MONETIZE_RENT!;
 
@@ -24,29 +28,72 @@ async function submitToHubspot(payload: any) {
   }
 }
 
-function toHubspotVisitFields(phone: string) {
-  const fixedName = "LeadSoulTaquaral";
-  const fixedEmail = `${fixedName}@gmail.com`;
-
-  if (HUBSPOT_PREFIX) {
-    return [
-      { name: `${HUBSPOT_PREFIX}_nome`, value: fixedName },
-      { name: `${HUBSPOT_PREFIX}_email`, value: fixedEmail },
-      { name: `${HUBSPOT_PREFIX}_telefone`, value: phone },
-      { name: `${HUBSPOT_PREFIX}_city`, value: FIXED_CITY },
-      {
-        name: `${HUBSPOT_PREFIX}_origem_form`,
-        value: "Agendar Visita - Soul Taquaral",
-      },
-    ];
+// Config específica por página
+function getVariantConfig(variant: "soul" | "studio") {
+  if (variant === "studio") {
+    return {
+      nameSuffix: "Lead Studio Taquaral",
+      interest: "Studio Universidades",
+      imobiliaria: "EasyStudios (Studio Taquaral)",
+      tipoImovel: "Studio",
+      finalidade: "Locação",
+      propertyType: "Residencial",
+      pageName: "Studio Taquaral - Hero",
+    };
   }
-  return [
-    { name: "firstname", value: fixedName },
-    { name: "email", value: fixedEmail },
-    { name: "mobilephone", value: phone },
-    { name: "city", value: FIXED_CITY },
-    { name: "origem_form", value: "Agendar Visita - Soul Taquaral" },
+  // SOUL (default)
+  return {
+    nameSuffix: "Lead Soul Taquaral",
+    interest: "Soul Taquaral",
+    imobiliaria: "De Sodi Broker (Soul Taquaral)",
+    tipoImovel: "Casa",
+    finalidade: "Venda",
+    propertyType: "Residencial",
+    pageName: "Soul Taquaral - Hero",
+  };
+}
+
+// Helper para (opcionalmente) prefixar nomes de propriedades
+const F = (name: string) => (HUBSPOT_PREFIX ? `${HUBSPOT_PREFIX}_${name}` : name);
+
+/**
+ * Monta os campos exigidos a partir do telefone informado.
+ * Campos solicitados:
+ * - firstname = "<telefone> + Lead ... (de acordo com a página)"
+ * - email = "<telefoneLimpo>@gmail.com"
+ * - phone = "<telefoneLimpo>"
+ * - property_detail = (NÃO enviar)
+ * - sales_contact_type = "Inquilino"
+ * - interest = por página
+ * - city = "Campinas"
+ * - nome_da_imobiliaria = por página
+ * - tipo_de_imovel = por página
+ * - finalidade = por página
+ * - property_type = "Residencial"
+ */
+function toHubspotVisitFields(rawPhone: string, variant: "soul" | "studio") {
+  const clean = rawPhone.replace(/\D/g, ""); // 11999991111
+  const cfg = getVariantConfig(variant);
+
+  const fields = [
+    { name: F("firstname"), value: `${clean} ${cfg.nameSuffix}` },
+    { name: F("email"), value: `${clean}@gmail.com` },
+    { name: F("phone"), value: clean }, // usar "phone" (não "mobilephone")
+    { name: F("sales_contact_type"), value: "Inquilino" },
+    { name: F("interest"), value: cfg.interest },
+    { name: F("city"), value: FIXED_CITY },
+    { name: F("nome_da_imobiliaria"), value: cfg.imobiliaria },
+    { name: F("tipo_de_imovel"), value: cfg.tipoImovel },
+    { name: F("finalidade"), value: cfg.finalidade },
+    { name: F("property_type"), value: cfg.propertyType },
+
+    // ❌ NÃO enviar property_detail (Detalhes da Propriedade) conforme pedido
+    // Opcional: origem da conversão (se quiser rastrear)
+    // { name: F("origem_form"), value: cfg.pageName },
   ];
+
+  // Tipar corretamente p/ payload do HubSpot
+  return fields as { name: string; value: string }[];
 }
 
 const HeroSection = () => {
@@ -62,13 +109,13 @@ const HeroSection = () => {
     }
     try {
       setSending(true);
-      const fields = toHubspotVisitFields(phone);
+      const fields = toHubspotVisitFields(phone, VARIANT);
       const payload = {
         fields,
         context: {
           hutk: getHubspotUtk(),
           pageUri: window.location.href,
-          pageName: "Soul Taquaral - Hero",
+          pageName: getVariantConfig(VARIANT).pageName,
         },
       };
       await submitToHubspot(payload);
@@ -98,8 +145,7 @@ const HeroSection = () => {
       <div className="hidden md:flex absolute top-6 right-0 px-6 lg:px-14 justify-end">
         <div className="absolute top-4 -right-0 bg-soul-yellow px-4 py-2 shadow-md">
           <p className="text-soul-secondary md:text-lg text-base font-normal whitespace-nowrap">
-            Previsão de entrega em:{" "}
-            <span className="font-black">2026</span>
+            Previsão de entrega em: <span className="font-black">2026</span>
           </p>
         </div>
       </div>

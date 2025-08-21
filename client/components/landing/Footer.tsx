@@ -11,7 +11,7 @@ const Footer = () => {
           <img
             src="https://github.com/GabrielCarelli/images-studio/blob/main/Imagem%20do%20WhatsApp%20de%202025-08-19%20%C3%A0(s)%2015.04.01_b71f2a96.jpg?raw=true"
             alt="Logo da Construtora"
-            className="h-10 object-contain ml-5"
+            className="h-20 object-contain ml-5"
           />
         </div>
 

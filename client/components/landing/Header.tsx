@@ -92,7 +92,7 @@ const Header = () => {
       {/* Desktop (lg+) — h-20 e px-10 como o modelo */}
       <div className="hidden lg:flex h-20 px-10 items-center w-full max-content-wrapper">
         <Logo />
-        <div className="flex flex-1 justify-center">
+        <div className="flex flex-1 justify-center ml-2">
           <NavLinks />
         </div>
         <div className="flex items-center gap-6 xl:gap-10 2xl:gap-16">

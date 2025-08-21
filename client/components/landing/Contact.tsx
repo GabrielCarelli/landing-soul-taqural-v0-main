@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Instagram } from "lucide-react";
 
-const HUBSPOT_PREFIX = ""; 
+const HUBSPOT_PREFIX = ""; // Ex.: "leadstudio" (deixe "" para usar os nomes sem prefixo)
 const FIXED_CITY = "Campinas";
 
 const portalId = import.meta.env.VITE_PUBLIC_HUBSPOT_PORTAL_ID!;
@@ -14,32 +14,44 @@ type FormValues = {
   nome: string;
   email: string;
   telefone?: string;
-  mensagem?: string;
-  city: string;
+  mensagem?: string; // será enviado como property_detail
+  city: string;      // mantido, mas usamos FIXED_CITY no payload
 };
 
 if (!portalId || !formId) {
   console.log("HubSpot não configurado corretamente");
 }
 
+/**
+ * Mapeia os campos do formulário para as propriedades do HubSpot
+ * conforme solicitado:
+ * - firstname, email, phone, property_detail, sales_contact_type, interest,
+ *   city, nome_da_imobiliaria, tipo_de_imovel, finalidade, property_type.
+ *
+ * Obs.: se HUBSPOT_PREFIX estiver preenchido, enviaremos os mesmos nomes
+ * com prefixo (ex.: `${HUBSPOT_PREFIX}_firstname`). Certifique-se de que
+ * essas propriedades existem no HubSpot se optar por usar prefixo.
+ */
 function toHubspotFields(data: FormValues) {
-  if (HUBSPOT_PREFIX) {
-    return [
-      { name: `${HUBSPOT_PREFIX}_nome`, value: data.nome },
-      { name: `${HUBSPOT_PREFIX}_email`, value: data.email },
-      data.telefone ? { name: `${HUBSPOT_PREFIX}_telefone`, value: data.telefone } : null,
-      data.mensagem ? { name: `${HUBSPOT_PREFIX}_mensagem`, value: data.mensagem } : null,
-      { name: `${HUBSPOT_PREFIX}_origem_form`, value: "Contato - Studio Universidades" },
-      { name: `${HUBSPOT_PREFIX}_city`, value: FIXED_CITY },
-    ].filter(Boolean) as { name: string; value: string }[];
-  }
+  const F = (name: string) => (HUBSPOT_PREFIX ? `${HUBSPOT_PREFIX}_${name}` : name);
 
   return [
-    { name: "firstname", value: data.nome },
-    { name: "email", value: data.email },
-    data.telefone ? { name: "phone", value: data.telefone } : null,
-    data.mensagem ? { name: "message", value: data.mensagem } : null,
-    { name: "city", value: FIXED_CITY },
+    { name: F("firstname"), value: data.nome },
+    { name: F("email"), value: data.email },
+    data.telefone ? { name: F("phone"), value: data.telefone } : null,
+    data.mensagem ? { name: F("property_detail"), value: data.mensagem } : null,
+
+    // Campos fixos solicitados
+    { name: F("sales_contact_type"), value: "Inquilino" },
+    { name: F("interest"), value: "Soul Taquaral" },
+    { name: F("city"), value: FIXED_CITY },
+    {
+      name: F("nome_da_imobiliaria"),
+      value: "De Sodi Broker",
+    },
+    { name: F("tipo_de_imovel"), value: "Casa" },
+    { name: F("finalidade"), value: "Venda" },
+    { name: F("property_type"), value: "Residencial" },
   ].filter(Boolean) as { name: string; value: string }[];
 }
 
@@ -59,7 +71,7 @@ async function submitToHubspot(payload: any) {
 
 const Contact = () => {
   const { register, handleSubmit, reset, formState } = useForm<FormValues>({
-    defaultValues: { nome: "", email: "", telefone: "", mensagem: "" },
+    defaultValues: { nome: "", email: "", telefone: "", mensagem: "", city: "" },
   });
   const { isSubmitting } = formState;
   const [sent, setSent] = useState(false);
@@ -79,7 +91,6 @@ const Contact = () => {
   return (
     <section className="max-w-[1440px] mx-auto px-6 md:px-20 py-16">
       <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
-        
         {/* Texto + Form */}
         <div className="w-full lg:w-[580px]">
           <div className="mb-6">
@@ -102,7 +113,6 @@ const Contact = () => {
 
           {!sent ? (
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              
               <div>
                 <label className="block text-soul-dark font-fagun text-sm font-normal mb-1">
                   Nome

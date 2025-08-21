@@ -24,26 +24,35 @@ async function submitToHubspot(payload: any) {
   }
 }
 
-function toHubspotVisitFields(phone: string) {
-  const fixedName = "LeadSoulTaquaral";
-  const fixedEmail = `${fixedName}@gmail.com`;
+// Helper para (opcionalmente) prefixar nomes de propriedades
+const F = (name: string) => (HUBSPOT_PREFIX ? `${HUBSPOT_PREFIX}_${name}` : name);
 
-  if (HUBSPOT_PREFIX) {
-    return [
-      { name: `${HUBSPOT_PREFIX}_nome`, value: fixedName },
-      { name: `${HUBSPOT_PREFIX}_email`, value: fixedEmail },
-      { name: `${HUBSPOT_PREFIX}_telefone`, value: phone },
-      { name: `${HUBSPOT_PREFIX}_city`, value: FIXED_CITY },
-      { name: `${HUBSPOT_PREFIX}_origem_form`, value: "Agendar Visita - Soul Taquaral" },
-    ];
-  }
-  return [
-    { name: "firstname", value: fixedName },
-    { name: "email", value: fixedEmail },
-    { name: "phone", value: phone },
-    { name: "city", value: FIXED_CITY },
-    { name: "origem_form", value: "Agendar Visita - Soul Taquaral" }, // opcional
+/**
+ * Soul Taquaral (Decorado)
+ * Deriva todos os campos a partir do telefone informado (somente dígitos).
+ * NÃO envia property_detail.
+ */
+function toHubspotVisitFields(rawPhone: string) {
+  const clean = rawPhone.replace(/\D/g, ""); // ex.: 11999991111
+
+  const fields = [
+    { name: F("firstname"), value: `${clean} Lead Soul Taquaral` },
+    { name: F("email"), value: `${clean}@gmail.com` },
+    { name: F("phone"), value: clean },
+
+    { name: F("sales_contact_type"), value: "Inquilino" },
+    { name: F("interest"), value: "Soul Taquaral" },
+    { name: F("city"), value: FIXED_CITY },
+    { name: F("nome_da_imobiliaria"), value: "De Sodi Broker (Soul Taquaral)" },
+    { name: F("tipo_de_imovel"), value: "Casa" },
+    { name: F("finalidade"), value: "Venda" },
+    { name: F("property_type"), value: "Residencial" },
+
+    // (Opcional) rastrear origem do envio desta seção:
+    // { name: F("origem_form"), value: "Agendar Visita - Soul Taquaral (Decorado)" },
   ];
+
+  return fields as { name: string; value: string }[];
 }
 
 const Decorated = () => {
@@ -96,14 +105,14 @@ const Decorated = () => {
           </div>
         </div>
 
-        {/* Descrição (central/à direita em telas maiores) */}
+        {/* Descrição */}
         <div className="hidden md:flex lg:flex-1 justify-center px-4 text-center">
           <p className="text-soul-gray text-xl font-normal">
             Visite a unidade decorada e veja de perto cada detalhe dos ambientes.
           </p>
         </div>
 
-        {/* Form (input + botão sobreposto, responsivo) */}
+        {/* Form (input + botão) */}
         <form
           onSubmit={handleVisitSubmit}
           className="flex flex-row items-center gap-2 w-full lg:w-auto min-w-0"
