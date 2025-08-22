@@ -71,11 +71,6 @@ const Decorated = () => {
       const fields = toHubspotVisitFields(phone);
       const payload = {
         fields,
-        context: {
-          hutk: getHubspotUtk(),
-          pageUri: window.location.href,
-          pageName: "Soul Taquaral - Decorado",
-        },
       };
       await submitToHubspot(payload);
       setPhone("");

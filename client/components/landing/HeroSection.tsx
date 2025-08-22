@@ -112,11 +112,6 @@ const HeroSection = () => {
       const fields = toHubspotVisitFields(phone, VARIANT);
       const payload = {
         fields,
-        context: {
-          hutk: getHubspotUtk(),
-          pageUri: window.location.href,
-          pageName: getVariantConfig(VARIANT).pageName,
-        },
       };
       await submitToHubspot(payload);
       setPhone("");
