@@ -103,7 +103,7 @@ const Header = () => {
             aria-label="Instagram"
             className="text-soul-dark hover:text-soul-secondary transition-colors"
           >
-            <Instagram className="w-6 h-6" />
+            <Instagram className="w-6 h-6 ml-6" />
           </a>
           <ContactButton onClick={() => scrollTo("#contato")} />
         </div>

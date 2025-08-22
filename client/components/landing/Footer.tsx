@@ -87,7 +87,7 @@ const Footer = () => {
           </span>
 
           <a
-            href="https://www.housebit.com.br/find"
+            href="https://www.housebit.com.br/especialist"
             target="_blank"
             rel="noopener noreferrer"
             className="flex h-10 px-4 py-2 flex-col justify-center items-center gap-2.5 rounded-full border border-studio-blue hover:bg-soul-secondary hover:text-white transition-colors duration-300"

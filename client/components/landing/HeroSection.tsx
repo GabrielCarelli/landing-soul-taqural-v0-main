@@ -78,7 +78,7 @@ function toHubspotVisitFields(rawPhone: string, variant: "soul" | "studio") {
   const fields = [
     { name: F("firstname"), value: `${clean} ${cfg.nameSuffix}` },
     { name: F("email"), value: `${clean}@gmail.com` },
-    { name: F("phone"), value: clean }, // usar "phone" (não "mobilephone")
+    { name: F("mobilephone"), value: clean }, // usar "phone" (não "mobilephone")
     { name: F("sales_contact_type"), value: "Inquilino" },
     { name: F("interest"), value: cfg.interest },
     { name: F("city"), value: FIXED_CITY },

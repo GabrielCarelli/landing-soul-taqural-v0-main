@@ -38,7 +38,7 @@ function toHubspotVisitFields(rawPhone: string) {
   const fields = [
     { name: F("firstname"), value: `${clean} Lead Soul Taquaral` },
     { name: F("email"), value: `${clean}@gmail.com` },
-    { name: F("phone"), value: clean },
+    { name: F("mobilephone"), value: clean },
 
     { name: F("sales_contact_type"), value: "Inquilino" },
     { name: F("interest"), value: "Soul Taquaral" },

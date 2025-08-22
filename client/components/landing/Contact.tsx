@@ -38,7 +38,7 @@ function toHubspotFields(data: FormValues) {
   return [
     { name: F("firstname"), value: data.nome },
     { name: F("email"), value: data.email },
-    data.telefone ? { name: F("phone"), value: data.telefone } : null,
+    data.telefone ? { name: F("mobilephone"), value: data.telefone } : null,
     data.mensagem ? { name: F("property_detail"), value: data.mensagem } : null,
 
     // Campos fixos solicitados
@@ -89,7 +89,7 @@ const Contact = () => {
   };
 
   return (
-    <section className="max-w-[1440px] mx-auto px-6 md:px-20 py-16">
+    <section className="max-w-[1440px] mx-auto px-6 md:px-20 py-16" id="contato">
       <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
         {/* Texto + Form */}
         <div className="w-full lg:w-[580px]">

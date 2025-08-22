@@ -42,7 +42,11 @@ const Financing = () =>{
               </div>
             </div>
 
-            <button className="bg-soul-blue text-white px-8 py-4 rounded-full text-[22px] font-normal">
+            <button 
+            onClick={() =>
+                 document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="bg-soul-blue text-white px-8 py-4 rounded-full text-[22px] font-normal">
               Quero saber mais
             </button>
           </div>
