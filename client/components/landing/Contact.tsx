@@ -25,7 +25,7 @@ if (!portalId || !formId) {
 /**
  * Mapeia os campos do formulário para as propriedades do HubSpot
  * conforme solicitado:
- * - firstname, email, phone, property_detail, sales_contact_type, interest,
+ * - firstname, email, phone, , sales_contact_type, interest,
  *   city, nome_da_imobiliaria, tipo_de_imovel, finalidade, property_type.
  *
  * Obs.: se HUBSPOT_PREFIX estiver preenchido, enviaremos os mesmos nomes
@@ -39,7 +39,7 @@ function toHubspotFields(data: FormValues) {
     { name: F("firstname"), value: data.nome },
     { name: F("email"), value: data.email },
     data.telefone ? { name: F("mobilephone"), value: data.telefone } : null,
-    data.mensagem ? { name: F("property_detail"), value: data.mensagem } : null,
+    data.mensagem ? { name: F("observacoes_do_lead"), value: data.mensagem } : null,
 
     // Campos fixos solicitados
     { name: F("sales_contact_type"), value: "Inquilino" },

@@ -27,11 +27,7 @@ async function submitToHubspot(payload: any) {
 // Helper para (opcionalmente) prefixar nomes de propriedades
 const F = (name: string) => (HUBSPOT_PREFIX ? `${HUBSPOT_PREFIX}_${name}` : name);
 
-/**
- * Soul Taquaral (Decorado)
- * Deriva todos os campos a partir do telefone informado (somente dígitos).
- * NÃO envia property_detail.
- */
+
 function toHubspotVisitFields(rawPhone: string) {
   const clean = rawPhone.replace(/\D/g, ""); // ex.: 11999991111
 

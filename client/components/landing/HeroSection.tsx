@@ -56,21 +56,6 @@ function getVariantConfig(variant: "soul" | "studio") {
 // Helper para (opcionalmente) prefixar nomes de propriedades
 const F = (name: string) => (HUBSPOT_PREFIX ? `${HUBSPOT_PREFIX}_${name}` : name);
 
-/**
- * Monta os campos exigidos a partir do telefone informado.
- * Campos solicitados:
- * - firstname = "<telefone> + Lead ... (de acordo com a página)"
- * - email = "<telefoneLimpo>@gmail.com"
- * - phone = "<telefoneLimpo>"
- * - property_detail = (NÃO enviar)
- * - sales_contact_type = "Inquilino"
- * - interest = por página
- * - city = "Campinas"
- * - nome_da_imobiliaria = por página
- * - tipo_de_imovel = por página
- * - finalidade = por página
- * - property_type = "Residencial"
- */
 function toHubspotVisitFields(rawPhone: string, variant: "soul" | "studio") {
   const clean = rawPhone.replace(/\D/g, ""); // 11999991111
   const cfg = getVariantConfig(variant);
@@ -78,7 +63,7 @@ function toHubspotVisitFields(rawPhone: string, variant: "soul" | "studio") {
   const fields = [
     { name: F("firstname"), value: `${clean} ${cfg.nameSuffix}` },
     { name: F("email"), value: `${clean}@gmail.com` },
-    { name: F("mobilephone"), value: clean }, // usar "phone" (não "mobilephone")
+    { name: F("mobilephone"), value: clean }, 
     { name: F("sales_contact_type"), value: "Inquilino" },
     { name: F("interest"), value: cfg.interest },
     { name: F("city"), value: FIXED_CITY },
@@ -87,9 +72,6 @@ function toHubspotVisitFields(rawPhone: string, variant: "soul" | "studio") {
     { name: F("finalidade"), value: cfg.finalidade },
     { name: F("property_type"), value: cfg.propertyType },
 
-    // ❌ NÃO enviar property_detail (Detalhes da Propriedade) conforme pedido
-    // Opcional: origem da conversão (se quiser rastrear)
-    // { name: F("origem_form"), value: cfg.pageName },
   ];
 
   // Tipar corretamente p/ payload do HubSpot
