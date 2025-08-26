@@ -11,7 +11,7 @@ const Location = () => {
   const points = [
     { title: "Parque Taquaral", desc: "A menos de 1 km do portão 1 do Parque." },
     { title: "Restaurantes", desc: "Muitas opções como Pizzarias, Bares, Comida Japonesa e entre outros" },
-    { title: "Comércios", desc: "Diversas opções de comércio e supermercados" },
+    { title: "Comércios", desc: "Diversas opções de comércio e supermercados" },
   ];
 
   const MapPinIcon = () => (
@@ -70,6 +70,8 @@ const Location = () => {
                 center={center}
                 zoom={zoom}
                 options={{
+                  // 👇 INSERIDO: Map ID necessário para Advanced Markers
+                  mapId: import.meta.env.VITE_PUBLIC_GOOGLE_MAPS_MAP_ID as string,
                   disableDefaultUI: true,
                   zoomControl: true,
                   fullscreenControl: false,
