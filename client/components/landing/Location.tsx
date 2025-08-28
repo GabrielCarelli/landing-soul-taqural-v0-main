@@ -5,8 +5,9 @@ const Location = () => {
   const GLASS_CLASSES =
     "bg-white/55 backdrop-blur-md backdrop-saturate-150 ring-1 ring-white/50 border border-white/30 shadow-md rounded-[32px]";
 
-  const center = useMemo(() => ({ lat: -22.8903, lng: -47.0502 }), []);
-  const zoom = 15;
+  // ✅ Coordenadas ajustadas para Rua Embiruçu, 82 – Taquaral – Campinas/SP
+  const center = useMemo(() => ({ lat: -22.82168, lng: -47.03513 }), []);
+  const zoom = 17;
 
   const points = [
     { title: "Parque Taquaral", desc: "A menos de 1 km do portão 1 do Parque." },
@@ -70,7 +71,7 @@ const Location = () => {
                 center={center}
                 zoom={zoom}
                 options={{
-                  // 👇 INSERIDO: Map ID necessário para Advanced Markers
+                  // Map ID necessário para Advanced Markers
                   mapId: import.meta.env.VITE_PUBLIC_GOOGLE_MAPS_MAP_ID as string,
                   disableDefaultUI: true,
                   zoomControl: true,
@@ -93,7 +94,7 @@ const Location = () => {
                   markerRef.current = new AdvancedMarkerElement({
                     map,
                     position: center,
-                    title: "Soul Taquaral",
+                    title: "Rua Embiruçu, 82 – Taquaral – Campinas/SP",
                   });
                 }}
                 onUnmount={() => {
