@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-// Header (mantendo seu path atual)
+// Header
 import Header from "../components/landing/Header";
 
 // Modais
@@ -19,7 +19,7 @@ import Contact from "@/components/landing/Contact";
 import Footer from "@/components/landing/Footer";
 import FloatingChat from "@/components/landing/FloatingChat";
 
-// ===== Constantes (exemplo do layout alvo) =====
+// ===== Constantes (galeria) =====
 const GALLERY_IMAGES: string[] = [
   "https://api.builder.io/api/v1/image/assets/TEMP/3fae655761c71946c78368423bc7d646e6e66e95?width=580",
   "https://api.builder.io/api/v1/image/assets/TEMP/f305a2d2bbddf2a21d3c5bdadff06d26e45eeec2?width=580",
@@ -55,7 +55,8 @@ const useFloorPlanModal = () => {
 
 // ===== Bloco das seções principais =====
 const LandingSections = () => (
-  <div>
+  <main className="w-full">
+    {/* Dica: seções internas devem usar containers/padding próprios */}
     <HeroSection />
     <Gallery />
     <Decorated />
@@ -65,8 +66,7 @@ const LandingSections = () => (
     <Location />
     <Financing />
     <Contact />
-    <Footer />
-  </div>
+  </main>
 );
 
 // ===== Bloco dos modais =====
@@ -77,13 +77,15 @@ interface ModalsProps {
     closeModal: () => void;
     navigateToImage: (index: number) => void;
   };
+  // Mantemos o floorPlanModal pra compatibilidade futura;
+  // prefixo "_" evita warnings de variável não usada:
   floorPlanModal: {
     isOpen: boolean;
     closeModal: () => void;
   };
 }
 
-const Modals = ({ galleryModal, floorPlanModal }: ModalsProps) => (
+const Modals = ({ galleryModal, floorPlanModal: _floorPlanModal }: ModalsProps) => (
   <>
     <GalleryModal
       images={GALLERY_IMAGES}
@@ -92,7 +94,12 @@ const Modals = ({ galleryModal, floorPlanModal }: ModalsProps) => (
       onClose={galleryModal.closeModal}
       onNavigate={galleryModal.navigateToImage}
     />
-
+    {/* Caso você tenha um modal de plantas, inclua aqui:
+        <FloorPlanModal
+          isOpen={_floorPlanModal.isOpen}
+          onClose={_floorPlanModal.closeModal}
+        />
+    */}
   </>
 );
 
@@ -102,11 +109,18 @@ export default function Index() {
   const floorPlanModal = useFloorPlanModal();
 
   return (
-    <div className="w-full max-content-wrapper">
-      <Header />
-      <LandingSections />
+    <div className="min-h-screen w-full overflow-x-hidden">
+      {/* Container global responsivo — substitui a antiga max-content-wrapper */}
+      <div className="container mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <Header />
+        <LandingSections />
+        <Footer />
+      </div>
+
+      {/* Elementos flutuantes que geralmente ficam fora do fluxo visual */}
       <FloatingChat />
 
+      {/* Modais no fim da árvore para evitar issues de z-index/stacking */}
       <Modals galleryModal={galleryModal} floorPlanModal={floorPlanModal} />
     </div>
   );

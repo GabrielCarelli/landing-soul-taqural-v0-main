@@ -5,8 +5,8 @@ const Location = () => {
   const GLASS_CLASSES =
     "bg-white/55 backdrop-blur-md backdrop-saturate-150 ring-1 ring-white/50 border border-white/30 shadow-md rounded-[32px]";
 
-  // ✅ Coordenadas ajustadas para Rua Embiruçu, 82 – Taquaral – Campinas/SP
-  const center = useMemo(() => ({ lat: -22.82168, lng: -47.03513 }), []);
+  // ✅ Coordenadas ajustadas para Rua Fernão Lopes – Taquaral – Campinas/SP
+  const center = useMemo(() => ({ lat: -22.87055, lng: -47.05474 }), []);
   const zoom = 17;
 
   const points = [
@@ -38,15 +38,13 @@ const Location = () => {
     </div>
   );
 
-  // Loader com versão weekly e biblioteca "marker" para AdvancedMarkerElement
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: import.meta.env.VITE_PUBLIC_GOOGLE_MAPS_API_KEY as string,
     version: "weekly",
-    libraries: ["marker"], // necessário p/ AdvancedMarkerElement
+    libraries: ["marker"],
   });
 
-  // Guardar referência do marcador (opcional, para limpar depois)
   const markerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
 
   return (
@@ -56,7 +54,7 @@ const Location = () => {
           A vida que você quer no bairro que você ama
         </h2>
         <p className="text-soul-dark text-center text-lg sm:text-xl md:text-xl lg:text-xl font-normal max-w-[1174px]">
-          Localizado na charmosa Rua Embiruçu, o Soul Taquaral coloca você
+          Localizado na charmosa Rua Fernão Lopes, o Soul Taquaral coloca você
           próximo à Lagoa, escolas, padarias, supermercados e tudo o que
           importa.
         </p>
@@ -71,7 +69,6 @@ const Location = () => {
                 center={center}
                 zoom={zoom}
                 options={{
-                  // Map ID necessário para Advanced Markers
                   mapId: import.meta.env.VITE_PUBLIC_GOOGLE_MAPS_MAP_ID as string,
                   disableDefaultUI: true,
                   zoomControl: true,
@@ -84,17 +81,15 @@ const Location = () => {
                   ],
                 }}
                 onLoad={(map) => {
-                  // limpa marcador anterior
                   if (markerRef.current) {
                     markerRef.current.map = null;
                     markerRef.current = null;
                   }
-                  // cria AdvancedMarkerElement
                   const { AdvancedMarkerElement } = google.maps.marker;
                   markerRef.current = new AdvancedMarkerElement({
                     map,
                     position: center,
-                    title: "Rua Embiruçu, 82 – Taquaral – Campinas/SP",
+                    title: "Rua Fernão Lopes, Taquaral – Campinas/SP",
                   });
                 }}
                 onUnmount={() => {
@@ -109,6 +104,7 @@ const Location = () => {
             )}
           </div>
 
+          {/* Pílula endereço */}
           <div
             className={`flex ${GLASS_CLASSES} absolute left-1/2 -translate-x-1/2 top-3 md:-top-6
                         items-center gap-2 px-4 md:px-6 lg:px-8 py-2 md:py-3 max-w-[780px] w-[90%] justify-center`}
@@ -116,10 +112,11 @@ const Location = () => {
           >
             <MapPinIcon />
             <span className="text-soul-dark text-center text-xs md:text-base leading-[120%] truncate">
-              Rua Embiruçu, 82 – Taquaral – Campinas/SP
+              Rua Fernão Lopes, Taquaral – Campinas/SP
             </span>
           </div>
 
+          {/* Pontos de interesse */}
           <div
             className={`hidden lg:flex ${GLASS_CLASSES} absolute left-1/2 -translate-x-1/2 -bottom-6
                         w-[92%] px-4 lg:px-6 xl:px-10 py-4 lg:py-6 items-center justify-center
@@ -132,6 +129,7 @@ const Location = () => {
           </div>
         </div>
 
+        {/* Mobile */}
         <div className={`lg:hidden ${GLASS_CLASSES} px-6 py-6 w-full max-w-[520px] mx-auto`}>
           <div className="flex flex-col gap-6">
             <div className="flex flex-col md:flex-row gap-6">

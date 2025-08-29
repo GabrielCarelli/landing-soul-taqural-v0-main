@@ -91,7 +91,7 @@ const Decorated = () => {
           <div className="flex items-start gap-2">
             <MapPin className="w-6 h-6 text-soul-gray mt-0.5" />
             <span className="text-soul-gray text-base leading-tight">
-              Rua Embiruçu, 82 – Taquaral – Campinas/SP.
+              Rua Fernão Lopes, Bairro Taquaral– Campinas/SP.
             </span>
           </div>
         </div>
